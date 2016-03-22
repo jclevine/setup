@@ -1,0 +1,14 @@
+[user]
+	name = Justin Levine
+	email = jlevine@loyalty.com
+[core]
+	autocrlf = input
+	whitespace = cr-at-eol
+[alias]
+	dc = diff --cached
+	createb = checkout -b
+	pushb = push -u origin
+	resetall = reset HEAD .
+[push]
+	default = simple
+[remote "origin"]
