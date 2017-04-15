@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<root>
+
+	<!-- WEBSTORM SHORTCUT -->
+	<vkopenurldef>
+  	<name>KeyCode::VK_OPEN_URL_APP_WebStorm</name>
+  	<url type="file">/Applications/WebStorm.app</url>
+	</vkopenurldef>
+
+	<item>
+  	<name>Ctrl-Alt-W = WebStorm</name>
+  	<identifier>private.ctrl_alt_w</identifier>
+    <autogen>
+      __KeyToKey__
+      KeyCode::W, ModifierFlag::CONTROL_L,ModifierFlag::COMMAND_L,
+      KeyCode::VK_OPEN_URL_APP_WebStorm,
+    </autogen>
+	</item>
+
+  <!-- SLACK SHORTCUT -->
+	<vkopenurldef>
+  	<name>KeyCode::VK_OPEN_URL_APP_Slack</name>
+  	<url type="file">/Applications/Slack.app</url>
+	</vkopenurldef>
+
+	<item>
+  	<name>Ctrl-Alt-S = Slack</name>
+  	<identifier>private.ctrl_alt_s</identifier>
+    <autogen>
+      __KeyToKey__
+      KeyCode::S, ModifierFlag::CONTROL_L,ModifierFlag::COMMAND_L,
+      KeyCode::VK_OPEN_URL_APP_Slack,
+    </autogen>
+	</item>
+
+  <!-- CHROME SHORTCUT -->
+	<vkopenurldef>
+  	<name>KeyCode::VK_OPEN_URL_APP_Chrome</name>
+  	<url type="file">/Applications/Google Chrome.app</url>
+	</vkopenurldef>
+
+	<item>
+  	<name>Ctrl-Alt-C = Chrome</name>
+  	<identifier>private.ctrl_alt_c</identifier>
+    <autogen>
+      __KeyToKey__
+      KeyCode::C, ModifierFlag::CONTROL_L,ModifierFlag::COMMAND_L,
+      KeyCode::VK_OPEN_URL_APP_Chrome,
+    </autogen>
+	</item>
+
+  <!-- OUTLOOK SHORTCUT -->
+	<vkopenurldef>
+  	<name>KeyCode::VK_OPEN_URL_APP_Outlook</name>
+  	<url type="file">/Applications/Microsoft Office 2011/Microsoft Outlook.app</url>
+	</vkopenurldef>
+
+	<item>
+  	<name>Ctrl-Alt-O = Outlook</name>
+  	<identifier>private.ctrl_alt_o</identifier>
+    <autogen>
+      __KeyToKey__
+      KeyCode::O, ModifierFlag::CONTROL_L,ModifierFlag::COMMAND_L,
+      KeyCode::VK_OPEN_URL_APP_Outlook,
+    </autogen>
+	</item>
+
+  <!-- ITERM2 SHORTCUT -->
+  <vkopenurldef>
+    <name>KeyCode::VK_OPEN_URL_APP_iTerm2</name>
+    <url type="file">/Applications/iTerm2.app</url>
+  </vkopenurldef>
+
+  <item>
+    <name>Ctrl-Alt-B = iTerm2</name>
+    <identifier>private.ctrl_alt_b</identifier>
+    <autogen>
+      __KeyToKey__
+      KeyCode::B, ModifierFlag::CONTROL_L,ModifierFlag::COMMAND_L,
+      KeyCode::VK_OPEN_URL_APP_iTerm2,
+    </autogen>
+  </item>
+</root>

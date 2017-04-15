@@ -1,0 +1,94 @@
+#!/usr/bin/env python
+# Fair amount of code copied from http://tech.myemma.com/python-pep8-git-hooks/
+# Copy this to $Project/.git/hooks if you want to use it
+# Use "git commit --no-verify" if you want to skip it
+
+import os
+import re
+import shutil
+import sys
+import tempfile
+from subprocess import Popen, PIPE
+sys.path.append("{}/tasks/lint".format(os.getcwd()))
+from merge_config import main as merge
+
+def system(*args, **kwargs):
+    """
+    Make a call and return the stdout.
+    """
+    kwargs.setdefault('stdout', PIPE)
+    proc = Popen(args, **kwargs)
+    out, err = proc.communicate()
+    return out
+
+
+def main():
+    """
+    Get modified files.
+    Run pylint on modified files in project directory.
+    ** Pylint is run on project directory, because it needs __init__ files.
+    Copy changed files to temp directory, and run pep8.
+    Log output, fails if there are pep8 or pylint violations.
+    """
+    pylint_flag = False
+    pylint_output = ""
+
+    # Regex to match changed files.
+    modified = re.compile('^[AM]+\s+(?P<name>.*\.py)', re.MULTILINE)
+    
+    #Find changed files, which match re modified
+    files = system('git', 'status', '--porcelain')
+    files = modified.findall(files)
+
+    #Temp directory for changed files.
+    tempdir = tempfile.mkdtemp()
+
+    # Get config file locations for pep8 and pylint
+    lint_path = os.path.join(os.getcwd(), "tasks", "lint") 
+    pylintrc = os.path.join(lint_path, "pylintrc")
+    pep8rc = os.path.join(lint_path, "pep8rc")
+    
+    # Get the merged pylintrc config file
+    merged_pylintrc = os.path.join(lint_path, "pylintrc_merged")
+    pylintrc_user = os.path.join(lint_path, "pylintrc_user")
+    merge((pylintrc, pylintrc_user, merged_pylintrc))
+
+    # Iterate over files, check pylint, and copy diffs to temp directory
+    for name in files:
+        # Run pylint on the individual files.
+        pylint_out = system('pylint', '--reports=n',
+                            '--output-format=colorized',
+                            '--rcfile=%s' % merged_pylintrc,
+                            name)
+        
+        if pylint_out:
+            pylint_flag = True
+            pylint_output += pylint_out
+
+
+        filename = os.path.join(tempdir, name)
+        filepath = os.path.dirname(filename)
+        if not os.path.exists(filepath):
+            os.makedirs(filepath)
+        with file(filename, 'w') as f:
+            system('git', 'show', ':' + name, stdout=f)
+        
+    
+    # Check pep8
+    pep8_output = system('pep8', '--config=%s' % pep8rc, '.', cwd=tempdir)
+    
+    
+    #Remove temp directory
+    shutil.rmtree(tempdir)
+    os.remove("tasks/lint/pylintrc_merged")
+
+
+    #Check violations and exit
+    if pep8_output or pylint_flag:
+        print pep8_output,
+        print pylint_output
+        sys.exit(1)
+
+
+if __name__ == '__main__':
+    main()
