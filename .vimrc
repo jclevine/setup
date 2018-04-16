@@ -9,6 +9,7 @@ set backspace=indent,eol,start  " make that backspace key work the way it should
 set nocompatible                " vi compatible is LAME
 set background=dark             " Use colours that work well on a dark background (Console is usually black)
 set showmode                    " show the current mode
+set number
 syntax on                       " turn syntax highlighting on by default
 " colorscheme solarized
 
