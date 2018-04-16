@@ -28,3 +28,9 @@ export NVM_DIR=~/.nvm
 
 # Added by Dato Launcher v2.2.0
 export PATH="/Users/jlevine/anaconda/bin:$PATH"
+
+# Set Java Home
+export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+
+# Port user alias
+alias netstatano="lsof -Pnl +M -i4 | grep $0"
