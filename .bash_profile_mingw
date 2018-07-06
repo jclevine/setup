@@ -1,0 +1,8 @@
+export PS1="\n\n\e[90;40m$(__git_ps1 '(%s)')\e[m\n[\e[1;32m\w\e[m]\n\n\e[1;97m$\e[m "
+export LS_COLORS="di=36:ln=36;1:ex=31;1:*~=31;1:*.html=31;1:*.shtml=37;1:*.java=33"
+
+alias ll='ls -la --color=auto'
+alias ls='ls --color=auto'
+
+eval `ssh-agent`
+ssh-add
