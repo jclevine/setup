@@ -1,8 +1,23 @@
-export PS1="\n\n\e[90;40m$(__git_ps1 '(%s)')\e[m\n[\e[1;32m\w\e[m]\n\n\e[1;97m$\e[m "
+export TERM=cygwin
+function parse_git_branch {
+  branch_name=$(git symbolic-ref HEAD 2> /dev/null) || return
+  files_changed_count=$(git status -s --column=plain 2> /dev/null | wc -l)
+
+  short_status=$(git status -sb) 2> /dev/null || ''
+  status_with_changed_files=${short_status#*[}
+
+  echo "("${branch_name#refs/heads/}\)"" [${files_changed_count} files changed ]""
+}
+
+PS1="\n\n\e[0;36m\$(parse_git_branch)\e[m"$'\n'"[\e[0;32m\w\e[m]"$'\n'$'\n'"$ "
 export LS_COLORS="di=36:ln=36;1:ex=31;1:*~=31;1:*.html=31;1:*.shtml=37;1:*.java=33"
 
-alias ll='ls -la --color=auto'
-alias ls='ls --color=auto'
+alias ll='ls -la -G'
+alias ls='ls -G'
 
+# SSH
 eval `ssh-agent`
 ssh-add
+
+# Add bash completion
+test -f /usr/local/bin/git-completion.sh && source $_
